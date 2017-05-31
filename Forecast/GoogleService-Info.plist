@@ -25,7 +25,7 @@
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<true/>
 	<key>IS_APPINVITE_ENABLED</key>
 	<false/>
 	<key>IS_GCM_ENABLED</key>
@@ -36,10 +36,5 @@
 	<string>1:988689028032:ios:8bbbd3d53accd5ce</string>
 	<key>DATABASE_URL</key>
 	<string>https://forecast-2fac5.firebaseio.com</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 </dict>
 </plist>

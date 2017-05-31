@@ -71,33 +71,33 @@ class City: NSObject, NSCoding{
     required convenience init?(coder aDecoder: NSCoder)
     {
         self.init()
-        self._icon = (aDecoder.decodeObjectForKey("icon") as? String)
-        self._cityCode = (aDecoder.decodeObjectForKey("cityCode") as? Int)
-        self._humidity = (aDecoder.decodeObjectForKey("humidity") as? Int)
-        self._location = (aDecoder.decodeObjectForKey("location") as? String)
-        self._temperature = (aDecoder.decodeObjectForKey("temperature") as? Int)
-        self._mainDesc = (aDecoder.decodeObjectForKey("mainDesc") as? String)
-        self._windSpeed = (aDecoder.decodeObjectForKey("windSpeed") as? Double)
+        self._icon = (aDecoder.decodeObject(forKey: "icon") as? String)
+        self._cityCode = (aDecoder.decodeObject(forKey: "cityCode") as? Int)
+        self._humidity = (aDecoder.decodeObject(forKey: "humidity") as? Int)
+        self._location = (aDecoder.decodeObject(forKey: "location") as? String)
+        self._temperature = (aDecoder.decodeObject(forKey: "temperature") as? Int)
+        self._mainDesc = (aDecoder.decodeObject(forKey: "mainDesc") as? String)
+        self._windSpeed = (aDecoder.decodeObject(forKey: "windSpeed") as? Double)
         
         
         
         
     }
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self._icon, forKey: "icon")
-        aCoder.encodeObject(self._cityCode, forKey: "cityCode")
-        aCoder.encodeObject(self._humidity, forKey: "humidity")
-        aCoder.encodeObject(self._location, forKey: "location")
-        aCoder.encodeObject(self._temperature, forKey: "temperature")
-        aCoder.encodeObject(self._mainDesc, forKey: "mainDesc")
-        aCoder.encodeObject(self._windSpeed, forKey: "windSpeed")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self._icon, forKey: "icon")
+        aCoder.encode(self._cityCode, forKey: "cityCode")
+        aCoder.encode(self._humidity, forKey: "humidity")
+        aCoder.encode(self._location, forKey: "location")
+        aCoder.encode(self._temperature, forKey: "temperature")
+        aCoder.encode(self._mainDesc, forKey: "mainDesc")
+        aCoder.encode(self._windSpeed, forKey: "windSpeed")
        
     }
     
-    func downloadCityWeather(completed: DownloadComplete){
+    func downloadCityWeather(completed: @escaping DownloadComplete){
         let u = "\(WEATHER_DATA)\(_cityCode)\(API_KEY)"
         print(u)
-        let url = NSURL(string: "\(WEATHER_DATA)\(_cityCode)\(API_KEY)")!
+        let url = URL(string: "\(WEATHER_DATA)\(_cityCode!)\(API_KEY)")!
         //        let url = NSURL(string: "\(URL_BASE_DATA)\(searchCityTextField.text!)\(LIKE)\(API_KEY)")!
         
         print(url)
@@ -138,7 +138,7 @@ class City: NSObject, NSCoding{
 //            }
 //            completed()
 //            }
-        Alamofire.request(.GET, url).responseJSON(completionHandler: {(response)
+        Alamofire.request(url).responseJSON(completionHandler: {(response)
              in
             let result = response.result
             print(result.debugDescription)
@@ -161,7 +161,7 @@ class City: NSObject, NSCoding{
                                         print(self._windSpeed)
                                     }
                                 }
-                                if let weather = dict["weather"] as? [Dictionary<String, AnyObject>] where weather.count > 0
+                                if let weather = dict["weather"] as? [Dictionary<String, AnyObject>], weather.count > 0
                                 {
                                     if let desc = weather[0]["main"] as? String {
                                         self._mainDesc = desc

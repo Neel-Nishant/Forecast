@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var backBtn: UIBarButtonItem!
     @IBOutlet weak var tView: UITableView!
     var cityS: City!
 //    var cityList: [City] = []
@@ -17,6 +18,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         tView.delegate = self
         tView.dataSource = self
+        backBtn.accessibilityElementsHidden = true
 //        DataService.ds.CITY_NAME.observeEventType(.Value, withBlock: {snapshot in
 //            print(snapshot.value)
 //            if let snapshots = snapshot.children.allObjects as? [FIRDataSnapshot]{
@@ -28,30 +30,40 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //    
 //        })
         DataService.ds.loadPosts()
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.onPostsLoaded), name: "postsLoaded", object: nil)
+         NotificationCenter.default.addObserver(self, selector: #selector(self.onPostsLoaded), name: NSNotification.Name(rawValue: "postsLoaded"), object: nil)
        
     
     }
-    func onPostsLoaded(notif: AnyObject){
+    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(true)
+////        self.navigationController?.navigationBar.backItem?.backBarButtonItem?.isEnabled = false
+//        self.backBtn.isEnabled = false
+//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationItem.hidesBackButton = true
+    }
+        func onPostsLoaded(_ notif: AnyObject){
         tView.reloadData()
     }
 
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //        if cityList == nil{
 //            return 0
 //        }
 //        return cityList.count
         return DataService.ds.loadedPosts.count
     }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        return tView.dequeueReusableCellWithIdentifier("CityCell") as! CityCell
-        if let cell  = tView.dequeueReusableCellWithIdentifier("CityCell", forIndexPath: indexPath) as? CityCell{
+        if let cell  = tView.dequeueReusableCell(withIdentifier: "CityCell", for: indexPath) as? CityCell{
             //            let cities: SearchCityResult
 //            if cityResult == nil {
 //                cell.configCell("London", citycode: 10)
@@ -84,15 +96,16 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        performSegueWithIdentifier("DetailVC", sender: city)
 //        
 //    }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailVC"
         {
-            if let cell = sender as? CityCell, row = tView.indexPathForCell(cell)?.row, vc = segue.destinationViewController as? DetailVC {
+            if let cell = sender as? CityCell, let row = tView.indexPath(for: cell)?.row, let vc = segue.destination as? DetailVC {
 //                vc.city = cityList[row]
                 vc.city = DataService.ds.loadedPosts[row]
-            
-            }
+                vc.count = row
+                            }
         }
+        
     }
     func updateCity(){
     
@@ -103,7 +116,7 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         print(self.cityS.cityCode)
         print(self.cityS.location)
 //        print(self.cityList.count)
-        cityS.downloadCityWeather({
+        cityS.downloadCityWeather(completed: {
             () -> () in
             print(self.cityS.cityCode)
             print(self.cityS.location)
@@ -122,35 +135,36 @@ class FeedVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    @IBAction func logOutPressed(sender: AnyObject) {
+    @IBAction func logOutPressed(_ sender: AnyObject) {
         
-            showErrorAlert2("Are you Sure?", msg: "Please click yes to sign out and cancel to cancel")
+            showErrorAlert2("Are you Sure?", msg: "Your list of cities will be deleted.")
+        
             
-        
-        
     }
-    func showErrorAlert(title: String, msg: String){
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+    func showErrorAlert(_ title: String, msg: String){
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(action)
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
-    func showErrorAlert2(title: String, msg: String){
-        let alert = UIAlertController(title: title, message: msg, preferredStyle: UIAlertControllerStyle.Alert)
-        let action = UIAlertAction(title: "yes", style: .Default) { (alert) in
+    func showErrorAlert2(_ title: String, msg: String){
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "yes", style: .default) { (alert) in
             do{
                 try FIRAuth.auth()?.signOut()
-                self.dismissViewControllerAnimated(true, completion: nil)
-                NSUserDefaults.standardUserDefaults().removeObjectForKey(KEY_UID)
+                self.dismiss(animated: true, completion: nil)
+                UserDefaults.standard.removeObject(forKey: KEY_UID)
+                DataService.ds.deletePosts()
                 
             }
             catch{
                 self.showErrorAlert("Not able to Sign Out", msg: "Please try after some time")
             }
         }
-        let action2 = UIAlertAction(title: "cancel", style: .Default, handler: nil)
+        let action2 = UIAlertAction(title: "cancel", style: .default, handler: nil)
         alert.addAction(action)
         alert.addAction(action2)
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
+    
 }

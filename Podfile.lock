@@ -1,74 +1,71 @@
 PODS:
-  - Alamofire (3.5.1)
-  - Firebase (3.7.0):
-    - Firebase/Core (= 3.7.0)
-  - Firebase/Auth (3.7.0):
+  - Alamofire (4.4.0)
+  - Firebase/Auth (3.17.0):
     - Firebase/Core
-    - FirebaseAuth (= 3.0.5)
-  - Firebase/Core (3.7.0):
-    - FirebaseAnalytics (= 3.4.3)
-    - FirebaseCore (= 3.4.3)
-  - Firebase/Database (3.7.0):
+    - FirebaseAuth (= 3.1.1)
+  - Firebase/Core (3.17.0):
+    - FirebaseAnalytics (= 3.9.0)
+    - FirebaseCore (= 3.6.0)
+  - Firebase/Database (3.17.0):
     - Firebase/Core
-    - FirebaseDatabase (= 3.0.3)
-  - FirebaseAnalytics (3.4.3):
-    - FirebaseCore (~> 3.4)
+    - FirebaseDatabase (= 3.1.2)
+  - FirebaseAnalytics (3.9.0):
+    - FirebaseCore (~> 3.6)
     - FirebaseInstanceID (~> 1.0)
-    - GoogleInterchangeUtilities (~> 1.2)
-    - GoogleSymbolUtilities (~> 1.1)
-    - GoogleUtilities (~> 1.3)
-  - FirebaseAuth (3.0.5):
-    - FirebaseAnalytics (~> 3.3)
-    - GoogleNetworkingUtilities (~> 1.2)
-    - GoogleUtilities (~> 1.2)
-  - FirebaseCore (3.4.3):
-    - GoogleInterchangeUtilities (~> 1.2)
-    - GoogleUtilities (~> 1.2)
-  - FirebaseDatabase (3.0.3):
-    - FirebaseAnalytics (~> 3.3)
-  - FirebaseInstanceID (1.0.8)
-  - GoogleAppUtilities (1.1.2):
-    - GoogleSymbolUtilities (~> 1.1)
-  - GoogleAuthUtilities (2.0.2):
-    - GoogleNetworkingUtilities (~> 1.2)
-    - GoogleSymbolUtilities (~> 1.1)
-  - GoogleInterchangeUtilities (1.2.2):
-    - GoogleSymbolUtilities (~> 1.1)
-  - GoogleNetworkingUtilities (1.2.2):
-    - GoogleSymbolUtilities (~> 1.1)
-  - GoogleSignIn (4.0.0):
-    - GoogleAppUtilities (~> 1.1)
-    - GoogleAuthUtilities (~> 2.0)
-    - GoogleNetworkingUtilities (~> 1.2)
-    - GoogleUtilities (~> 1.3)
-  - GoogleSymbolUtilities (1.1.2)
-  - GoogleUtilities (1.3.2):
-    - GoogleSymbolUtilities (~> 1.1)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseAuth (3.1.1):
+    - FirebaseAnalytics (~> 3.7)
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (3.6.0):
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseDatabase (3.1.2):
+    - FirebaseAnalytics (~> 3.7)
+  - FirebaseInstanceID (1.0.10):
+    - FirebaseCore (~> 3.6)
+  - GoogleSignIn (4.0.2):
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GoogleToolboxForMac/NSString+URLArguments (~> 2.1)
+    - GTMOAuth2 (~> 1.0)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+  - GoogleToolboxForMac/Defines (2.1.1)
+  - GoogleToolboxForMac/NSData+zlib (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.1):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.1)
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
+  - GTMOAuth2 (1.1.4):
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.1.9):
+    - GTMSessionFetcher/Full (= 1.1.9)
+  - GTMSessionFetcher/Core (1.1.9)
+  - GTMSessionFetcher/Full (1.1.9):
+    - GTMSessionFetcher/Core (= 1.1.9)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.4)
-  - Firebase
+  - Alamofire (~> 4.4)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - GoogleSignIn
 
 SPEC CHECKSUMS:
-  Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
-  Firebase: 3875e140d77c7572c6d4852faf94144ffcdb0704
-  FirebaseAnalytics: 02d0aed8c6246a9c8683ac3e9825c67ceb657bde
-  FirebaseAuth: 75a062bbf2d3c97d1e6e55bbc110e13a6853e25d
-  FirebaseCore: 5a885548bbc5f0c410b04f8e9ac9d73ff1221907
-  FirebaseDatabase: 750a4a0fe18ef114318876fd654b2d9c671e0992
-  FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
-  GoogleAppUtilities: a8a552aa74f6597f805e45b5a3962766c3134973
-  GoogleAuthUtilities: ccad2e0a9284699973ff57c0dd24c3893657fda4
-  GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
-  GoogleNetworkingUtilities: 3edd3a8161347494f2da60ea0deddc8a472d94cb
-  GoogleSignIn: 09036ed61f8e75f1424100d63f7719480b2428c3
-  GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
-  GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  Firebase: 4b66b5b59c43edac745b87f0c87e42cdd0279c13
+  FirebaseAnalytics: e5fe8486efc01bec33f6bf82e2fa9fce4b124052
+  FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
+  FirebaseCore: 9691ee2ade70c098d7cf92440f4303f16d83ca75
+  FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
+  FirebaseInstanceID: b9eedd6846fb5e1f0f7279e1deaa7a7e4cf8392e
+  GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
+  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  GTMOAuth2: 7fc9c10f5c745f4d9850419ea88889fe3baa6b7d
+  GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
 
-PODFILE CHECKSUM: 9e622883fc5a1ef8d8044aa290166e91bd36a293
+PODFILE CHECKSUM: 9d25be0e1d190e7fe35577c657065625c9bb5568
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.2.1

@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+
 class SearchCityResult {
     private var _location: [String] = []
     private var _cityCode: [Int] = []
@@ -36,11 +37,15 @@ class SearchCityResult {
         if _keyword == nil{
             return ""
         }
-        return _keyword
+//        if _keyword.contains(" "){
+//            _keyword.replacingOccurrences(of: " ", with: "")
+//        }
+                return _keyword
         
     }
     init(key: String)
     {
+        
         _keyword = key
     }
 //
@@ -55,14 +60,23 @@ class SearchCityResult {
 //        self._keyword = key
 //    }
   
-    func downloadSearchResult(completed: DownloadComplete){
+    func downloadSearchResult(_ completed: @escaping DownloadComplete){
+        print(_keyword)
+        if _keyword.contains(" "){
+            let arr1 = _keyword.components(separatedBy: " ")
+            _keyword.removeAll()
+            _keyword.append(arr1[0])
+            _keyword.append(arr1[1])
+        }
+        print(_keyword)
+
+        print("\(URL_BASE_DATA)\(_keyword!)\(LIKE)\(API_KEY)")
         
-        let url = NSURL(string: "\(URL_BASE_DATA)\(_keyword)\(LIKE)\(API_KEY)")!
+        let url = URL(string: "\(URL_BASE_DATA)\(_keyword!)\(LIKE)\(API_KEY)")!
 //        let url = NSURL(string: "\(URL_BASE_DATA)\(searchCityTextField.text!)\(LIKE)\(API_KEY)")!
         
         print(url)
-        
-        Alamofire.request(.GET,url).responseJSON {
+        Alamofire.request(url).responseJSON {
             response in
             let result = response.result
 //            print(result.debugDescription)
@@ -77,11 +91,11 @@ class SearchCityResult {
 //                    }
 //                }
                 
-                if let cont = dict["list"] as? [Dictionary<String,AnyObject>] where cont.count > 0 {
+                if let cont = dict["list"] as? [Dictionary<String,AnyObject>], cont.count > 0 {
                    
                     print(self._location.isEmpty)
                     print(self._location.count)
-                    print(self._location.first)
+//                    print(self._location.first)
                     
                         for x in 0 ... cont.count - 1{
                             

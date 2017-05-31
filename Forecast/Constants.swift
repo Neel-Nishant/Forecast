@@ -21,7 +21,7 @@ let STATUS_ACCOUNT_NONEXIST = 17011
 public let URL_BASE_DATA = "http://api.openweathermap.org/data/2.5/find?q="
 public let LIKE = "&type=like"
 public let URL_UNITS = ""
-public let API_KEY = "&APPID=5a586137282057cc88b3a8397d180da1"
+public let API_KEY = "&APPID=4beefd0e69d4dec8639825bdf3418da4"
 public let WEATHER_DATA = "http://api.openweathermap.org/data/2.5/weather?id="
 typealias DownloadComplete = () -> ()
 

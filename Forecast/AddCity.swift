@@ -46,23 +46,23 @@ class AddCity: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //       
 //        tView.reloadData()
 //    }
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if cityResult == nil{
             return 0
         }
         return (cityResult?.cityCode.count)!
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        return tView.dequeueReusableCellWithIdentifier("CitySearchCell") as! CitySearchCell
-        if let cell  = tView.dequeueReusableCellWithIdentifier("CitySearchCell", forIndexPath: indexPath) as? CitySearchCell{
+        if let cell  = tView.dequeueReusableCell(withIdentifier: "CitySearchCell", for: indexPath) as? CitySearchCell{
 //            let cities: SearchCityResult
             if cityResult == nil {
-                cell.configCell("London", citycode: 10)
+                cell.configCell(cityr: "London", citycode: 10)
                 return cell
             }
             var poke: String
@@ -70,7 +70,7 @@ class AddCity: UIViewController, UITableViewDelegate, UITableViewDataSource {
             poke = (cityResult?.location[indexPath.row])!
             poke1 = (cityResult?.cityCode[indexPath.row])!
             
-            cell.configCell(poke, citycode: poke1)
+            cell.configCell(cityr: poke, citycode: poke1)
             return cell
         }
         else {
@@ -91,10 +91,10 @@ class AddCity: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        
 //        
 //    }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FeedVC"
         {
-            if let cell = sender as? CitySearchCell, row = tView.indexPathForCell(cell)?.row, vc = segue.destinationViewController as? FeedVC {
+            if let cell = sender as? CitySearchCell, let row = tView.indexPath(for: cell)?.row, let vc = segue.destination as? FeedVC {
                 let city = City(city: cityResult!.location[row], code: cityResult!.cityCode[row])
                 citySelect = city
                 vc.cityS = citySelect
@@ -104,10 +104,12 @@ class AddCity: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
                 
             }
+            
         }
+        
     }
    
-    @IBAction func searchCityPressed(sender: AnyObject) {
+    @IBAction func searchCityPressed(_ sender: AnyObject) {
 //        if cityList != nil{
 //        cityResult!.downloadSearchResult{ ()->() in
 //            

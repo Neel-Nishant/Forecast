@@ -16,7 +16,7 @@ class CityCell: UITableViewCell {
     @IBOutlet weak var temperature: UILabel!
     var city: City!
     
-    func configureCell(city: City)
+    func configureCell(_ city: City)
     {
        self.city = city
         
@@ -25,13 +25,14 @@ class CityCell: UITableViewCell {
 //        print(city.temperature)
 //        print(city.mainDesc)
         cityName.text = city.location
-        temperature.text = "\(city.temperature)"
+        temperature.text = "\(city.temperature)°"
         weatherDesc.text = city.mainDesc
         weatherImage.image = UIImage(named: city.icon)
         
         
         
     }
+    
     required init?(coder aDecoder: NSCoder){
         
         super.init(coder: aDecoder)
